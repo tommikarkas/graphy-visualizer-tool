@@ -16,6 +16,14 @@ const Index = () => {
 
   return (
     <div className="container mx-auto py-8 px-4">
+      <div className="mb-8 flex justify-center">
+        <img 
+          src="https://images.unsplash.com/photo-1535268647677-300dbf3d78d1" 
+          alt="Cute puppy" 
+          className="rounded-lg shadow-lg max-w-[300px] h-auto"
+        />
+      </div>
+      
       <h1 className="text-3xl font-bold mb-8 text-center">
         JSON Network Graph Visualizer
       </h1>
