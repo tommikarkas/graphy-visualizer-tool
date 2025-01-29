@@ -5,16 +5,55 @@ import { processJsonToGraph } from "@/utils/graphUtils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
 
 const Index = () => {
   const [graphData, setGraphData] = useState<{
     nodes: any[];
     edges: any[];
   } | null>(null);
+  const [prompt, setPrompt] = useState("");
+  const [response, setResponse] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
+  const { toast } = useToast();
 
   const handleDataReceived = (data: any) => {
     const processed = processJsonToGraph(data);
     setGraphData(processed);
+  };
+
+  const handlePromptSubmit = async () => {
+    if (!prompt.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter a prompt",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsProcessing(true);
+    setResponse("Processing your request...");
+
+    try {
+      // Simulate AI processing delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      setResponse(`Here's a simulated response to your prompt: "${prompt}"\n\nI understand you want to make changes to the application. In a real implementation, I would help you modify the code based on your request.`);
+      
+      toast({
+        title: "Success",
+        description: "Response generated successfully",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to process your request",
+        variant: "destructive",
+      });
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -59,21 +98,25 @@ const Index = () => {
               <div className="flex gap-2">
                 <Input
                   id="prompt"
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
                   placeholder="Type your instructions here..."
                   className="bg-[#333333] border-[#444444] text-white"
                 />
                 <Button 
+                  onClick={handlePromptSubmit}
+                  disabled={isProcessing}
                   className="bg-blue-600 hover:bg-blue-700 text-white"
                 >
-                  Send
+                  {isProcessing ? "Processing..." : "Send"}
                 </Button>
               </div>
             </div>
 
             <div className="bg-[#2a2a2a] p-6 rounded-lg h-[500px] overflow-y-auto">
               <h3 className="text-lg font-semibold mb-4 text-gray-300">Response</h3>
-              <div className="text-gray-400">
-                Your AI response will appear here...
+              <div className="text-gray-400 whitespace-pre-wrap">
+                {response || "Your AI response will appear here..."}
               </div>
             </div>
           </div>
