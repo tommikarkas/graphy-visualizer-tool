@@ -15,6 +15,9 @@ export const GraphVisualization = ({ initialData }: GraphVisualizationProps) => 
         nodes={initialData.nodes}
         edges={initialData.edges}
         fitView
+        defaultEdgeOptions={{
+          type: 'smoothstep',
+        }}
       >
         <Background />
         <Controls />
