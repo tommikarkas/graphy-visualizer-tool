@@ -14,6 +14,9 @@ export const processJsonToGraph = (data: any) => {
         ? '[Object]' 
         : String(data.value);
       
+      // Get the last part of the ID as the node name
+      const nodeName = id.split('-').pop() || id;
+      
       nodes.push({
         id,
         position: {
@@ -21,12 +24,7 @@ export const processJsonToGraph = (data: any) => {
           y: Math.random() * 500,
         },
         data: { 
-          label: (
-            <>
-              <div className="font-bold">{id.split('-').pop()}</div>
-              <div className="text-sm text-gray-600">{displayValue}</div>
-            </>
-          ),
+          label: `${nodeName}\n${displayValue}`,
           ...data 
         },
         style: {
@@ -36,8 +34,11 @@ export const processJsonToGraph = (data: any) => {
           width: 180,
           padding: "12px",
           borderRadius: "8px",
+          whiteSpace: "pre-wrap", // This allows \n to create line breaks
+          fontSize: "14px",
+          fontWeight: "500",
         },
-        draggable: true, // This is actually the default, but explicitly setting it for clarity
+        draggable: true,
       });
     }
   };
