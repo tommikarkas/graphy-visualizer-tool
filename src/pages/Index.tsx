@@ -28,11 +28,9 @@ const Index = () => {
         JSON Network Graph Visualizer
       </h1>
       
-      {!graphData && (
-        <div className="max-w-2xl mx-auto">
-          <FileUpload onDataReceived={handleDataReceived} />
-        </div>
-      )}
+      <div className="max-w-2xl mx-auto mb-8">
+        <FileUpload onDataReceived={handleDataReceived} />
+      </div>
 
       {graphData && (
         <div className="mt-8">
