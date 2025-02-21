@@ -1,7 +1,6 @@
 
-import { useCallback } from "react";
-import { ReactFlow, Background, Controls, Node, Edge, OnNodesChange, useNodesState, useEdgesState } from "reactflow";
-import "reactflow/dist/style.css";
+import { ReactFlow, Background, Controls, Node, Edge, useNodesState, useEdgesState } from "@xyflow/react";
+import "@xyflow/react/dist/style.css";
 
 interface GraphVisualizationProps {
   initialData: {
