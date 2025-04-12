@@ -11,7 +11,7 @@ interface GraphVisualizationProps {
 
 export const GraphVisualization = ({ initialData }: GraphVisualizationProps) => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialData.nodes);
-  const [edges] = useEdgesState(initialData.edges);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialData.edges);
 
   return (
     <div style={{ width: "100%", height: "500px" }}>
@@ -19,6 +19,7 @@ export const GraphVisualization = ({ initialData }: GraphVisualizationProps) => 
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
         fitView
         defaultEdgeOptions={{
           type: 'smoothstep',
